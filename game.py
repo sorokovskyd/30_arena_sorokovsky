@@ -71,7 +71,6 @@ class Warrior(Person):
         self.race = 'Воин'
 
 
-
 class Elf(Person):
     def __init__(self, name: str, hp: int,
                  base_attack: int, base_protection: float):
@@ -82,7 +81,6 @@ class Elf(Person):
             base_protection*1.5,
         )
         self.race = 'Эльф'
-
 
 
 things = [
