@@ -12,12 +12,19 @@ class Thing:
 
 
 class Person:
-    def __init__(self, name: str, hp: int,
-                 base_attack: int, base_protection: float):
+    BASE_HP = 100
+    BASE_ATTACK = 10
+    BASE_PROTECTION = 0.05
+
+    def __init__(self, name: str, hp: int | None,
+                 base_attack: int | None,
+                 base_protection: float | None):
         self.name = name
-        self.hp = hp
-        self.base_attack = base_attack
-        self.base_protection = base_protection
+        self.hp = hp if hp is not None else self.BASE_HP
+        self.base_attack = (base_attack if base_attack is not None
+                            else self.BASE_ATTACK)
+        self.base_protection = (base_protection if base_protection is not None
+                                else self.BASE_PROTECTION)
         self.things: list[Thing] = []
         self.race = 'Creature'
 
@@ -48,38 +55,39 @@ class Person:
 
 
 class Paladin(Person):
-    def __init__(self, name: str, hp: int,
-                 base_attack: int, base_protection: float):
-        super().__init__(
-            name,
-            hp*2,
-            base_attack,
-            base_protection*2,
-        )
+    def __init__(self, name: str, hp=None,
+                 base_attack=None, base_protection=None):
+        super().__init__(name, hp, base_attack, base_protection)
+
+        if hp is None:
+            self.hp *= 2
+        if base_protection is None:
+            self.base_protection *= 2
+
         self.race = 'Паладин'
 
 
 class Warrior(Person):
-    def __init__(self, name: str, hp: int,
-                 base_attack: int, base_protection: float):
-        super().__init__(
-            name,
-            hp,
-            base_attack*2,
-            base_protection,
-        )
+    def __init__(self, name: str, hp=None,
+                 base_attack=None, base_protection=None):
+        super().__init__(name, hp, base_attack, base_protection)
+
+        if base_attack is None:
+            self.base_attack *= 2
+
         self.race = 'Воин'
 
 
 class Elf(Person):
-    def __init__(self, name: str, hp: int,
-                 base_attack: int, base_protection: float):
-        super().__init__(
-            name,
-            hp,
-            base_attack*2,
-            base_protection*1.5,
-        )
+    def __init__(self, name: str, hp=None,
+                 base_attack=None, base_protection=None):
+        super().__init__(name, hp, base_attack, base_protection)
+
+        if base_attack is None:
+            self.base_attack = int(self.base_attack * 2)
+        if base_protection is None:
+            self.base_protection *= 1.5
+
         self.race = 'Эльф'
 
 
@@ -106,11 +114,11 @@ for _ in range(10):
     name = random.choice(names)
     race = random.choice(['paladin', 'warrior', 'elf'])
     if race == 'paladin':
-        person = Paladin(name, 100, 10, 0.05)
+        person = Paladin(name)
     elif race == 'warrior':
-        person = Warrior(name, 100, 10, 0.05)
+        person = Warrior(name)
     else:
-        person = Elf(name, 100, 10, 0.05)
+        person = Elf(name)
 
     persons.append(person)
 
