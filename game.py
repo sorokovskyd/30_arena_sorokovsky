@@ -30,6 +30,8 @@ class Person:
 
     def set_things(self, things):
         self.things = things
+        for thing in self.things:
+            self.hp += thing.hp
 
     def take_damage(self, attack_damage):
         final_protection = self.base_protection
@@ -98,6 +100,9 @@ things = [
     Thing('Boots', 0.02, 0, 5),
     Thing('Sword', 0.0, 10, 0),
     Thing('Shield', 0.07, 0, 15),
+]
+elf_things = [
+    Thing('Elf_ring', 0.2, 0, 25)
 ]
 things.sort(key=lambda x: x.protection)
 
