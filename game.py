@@ -18,7 +18,7 @@ class Person:
         self.hp = hp
         self.base_attack = base_attack
         self.base_protection = base_protection
-        self.things = []
+        self.things: list[Thing] = []
         self.race = 'Creature'
 
     def set_things(self, things):
@@ -84,12 +84,12 @@ class Elf(Person):
 
 
 things = [
-    Thing("Helmet", 0.05, 0, 10),
-    Thing("Armor", 0.1, 0, 20),
-    Thing("Ring", 0.03, 5, 0),
-    Thing("Boots", 0.02, 0, 5),
-    Thing("Sword", 0.0, 10, 0),
-    Thing("Shield", 0.07, 0, 15),
+    Thing('Helmet', 0.05, 0, 10),
+    Thing('Armor', 0.1, 0, 20),
+    Thing('Ring', 0.03, 5, 0),
+    Thing('Boots', 0.02, 0, 5),
+    Thing('Sword', 0.0, 10, 0),
+    Thing('Shield', 0.07, 0, 15),
 ]
 things.sort(key=lambda x: x.protection)
 
@@ -120,19 +120,19 @@ for person in persons:
 
 
 def main():
-    round_number = 1 
+    round_number = 1
     while len(persons) > 1:
         attacker, defender = random.sample(persons, 2)
         damage = attacker.attack(defender)
 
         print(
-            Fore.YELLOW + f"Раунд {round_number}: " + Style.RESET_ALL +
-            f"{attacker.name} атакует {defender.name} "
-            + Fore.RED + f"на {damage} урона" + Style.RESET_ALL
+            Fore.YELLOW + f'Раунд {round_number}: ' + Style.RESET_ALL +
+            f'{attacker.name} атакует {defender.name} '
+            + Fore.RED + f'на {damage} урона' + Style.RESET_ALL
         )
 
         if defender.hp <= 0:
-            print(Fore.LIGHTRED_EX + f"{defender.name} погиб в бою\n"
+            print(Fore.LIGHTRED_EX + f'{defender.name} погиб в бою\n'
                   + Style.RESET_ALL)
             persons.remove(defender)
 
