@@ -94,15 +94,17 @@ class Elf(Person):
 
 
 things = [
-    Thing('Helmet', 0.05, 0, 10),
-    Thing('Armor', 0.1, 0, 20),
-    Thing('Ring', 0.03, 5, 0),
-    Thing('Boots', 0.02, 0, 5),
-    Thing('Sword', 0.0, 10, 0),
-    Thing('Shield', 0.07, 0, 15),
+    Thing('Шлем', 0.05, 0, 10),
+    Thing('Нагрудник', 0.1, 0, 20),
+    Thing('Кольцо', 0.03, 5, 0),
+    Thing('Сапожи', 0.02, 0, 5),
+    Thing('Меч', 0.0, 10, 0),
+    Thing('Щит', 0.07, 0, 15),
 ]
 elf_things = [
-    Thing('Elf_ring', 0.2, 0, 25)
+    Thing('Кольцо Эльфов', 0.2, 0, 25),
+    Thing('Эльфийский меч', 0.0, 20, 0),
+    Thing('Эльфийский лук', 0.0, 15, 0),
 ]
 things.sort(key=lambda x: x.protection)
 
@@ -129,7 +131,10 @@ for _ in range(10):
 
 for person in persons:
     count = random.randint(1, 4)
-    person.set_things(random.sample(things, count))
+    items = random.sample(things, count)
+    if isinstance(person, Elf):
+        items.append(random.choice(elf_things))
+    person.set_things(items)
 
 
 def main():
@@ -154,6 +159,8 @@ def main():
     winner = persons[0]
     print(Fore.GREEN + '🏆 Победитель арены:'
           + Style.RESET_ALL + f' {winner.race} {winner.name}')
+    print('В боях ему помогли следующие артефакты:',
+          ', '.join(thing.name.lower() for thing in winner.things))
 
 
 if __name__ == '__main__':
