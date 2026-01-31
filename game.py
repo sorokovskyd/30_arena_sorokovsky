@@ -19,6 +19,7 @@ class Person:
         self.base_attack = base_attack
         self.base_protection = base_protection
         self.things = []
+        self.race = 'Creature'
 
     def set_things(self, things):
         self.things = things
@@ -55,6 +56,7 @@ class Paladin(Person):
             base_attack,
             base_protection*2,
         )
+        self.race = 'Паладин'
 
 
 class Warrior(Person):
@@ -66,6 +68,8 @@ class Warrior(Person):
             base_attack*2,
             base_protection,
         )
+        self.race = 'Воин'
+
 
 
 class Elf(Person):
@@ -77,6 +81,8 @@ class Elf(Person):
             base_attack*2,
             base_protection*1.5,
         )
+        self.race = 'Эльф'
+
 
 
 things = [
@@ -136,7 +142,7 @@ def main():
 
     winner = persons[0]
     print(Fore.GREEN + '🏆 Победитель арены:'
-          + Style.RESET_ALL + f' {winner.name}')
+          + Style.RESET_ALL + f' {winner.race} {winner.name}')
 
 
 if __name__ == '__main__':
